@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 import { DataService } from './data.service';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { DataService } from './data.service';
     DashboardComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
@@ -33,6 +34,7 @@ import { DataService } from './data.service';
       registrationStrategy: 'registerWhenStable:30000'
     }),
     BrowserAnimationsModule,
+    RouterModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

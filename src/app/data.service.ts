@@ -11,4 +11,10 @@ export class DataService {
   GetData() {
     return this.http.get('https://jsonplaceholder.typicode.com/users');
   }
+  addPushSubscriner(sub: any) {
+
+  }
+  send() {
+
+  }
 }

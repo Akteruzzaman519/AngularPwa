@@ -1,5 +1,6 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { SwUpdate } from '@angular/service-worker';
+import { SwPush, SwUpdate } from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,8 @@ import { SwUpdate } from '@angular/service-worker';
 })
 export class AppComponent implements OnInit {
   title = 'PWA';
-  constructor(private swUpdate: SwUpdate) { }
+  readonly VAPID_PULIC_KEY = "BLvAVuGIscNJmIj5XWS4Wlp6IOQncwDY8-1E3A82OF9ftZBq1soEVZt7AF_P8eos_0VNBNh6BkBInzuV5PzWwbs";
+  constructor(private swUpdate: SwUpdate, private swPush: SwPush) { }
   ngOnInit(): void {
 
     if (this.swUpdate.isEnabled) {
@@ -18,6 +20,24 @@ export class AppComponent implements OnInit {
         }
       });
     }
+
+  }
+
+  subscribeToNotification() {
+    this.swPush.requestSubscription({
+      serverPublicKey: this.VAPID_PULIC_KEY
+    }).then(
+      sub => {
+        console.log("notification Subscribtion", sub)
+        
+      }
+    ).catch(
+      err => {
+        console.error("could not subscribe to notification", err)
+      }
+    )
+  }
+  sendNewsletter() {
 
   }
 }
