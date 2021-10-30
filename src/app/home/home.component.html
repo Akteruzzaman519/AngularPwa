@@ -1,0 +1,17 @@
+<h1>User List </h1>
+<div class="row no-gutters">
+    <div *ngFor="let item of user" class="col-md-3 p-2">
+        <div class="card">
+            <div class="card-header">
+                <h5>name : {{item.name}}</h5>
+            </div>
+            <div class="card-body">
+                <p>{{item.username}}</p>
+                <p>{{item.email}}</p>
+                <p>street : {{item.address.street}}, suite : {{item.address.suite}}, city : {{item.address.city}},
+                    zipcode : {{item.address.zipcode}}</p>
+                <p>phone : {{item.phone}}</p>
+                <p>website : {{item.website}}</p>
+            </div>
+        </div>
+    </div>
