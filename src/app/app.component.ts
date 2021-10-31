@@ -1,6 +1,7 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { SwPush, SwUpdate } from '@angular/service-worker';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { SwPush, SwUpdate } from '@angular/service-worker';
 export class AppComponent implements OnInit {
   title = 'PWA';
   readonly VAPID_PULIC_KEY = "BLvAVuGIscNJmIj5XWS4Wlp6IOQncwDY8-1E3A82OF9ftZBq1soEVZt7AF_P8eos_0VNBNh6BkBInzuV5PzWwbs";
-  constructor(private swUpdate: SwUpdate, private swPush: SwPush) { }
+  constructor(private swUpdate: SwUpdate, private swPush: SwPush, private data: DataService) { }
   ngOnInit(): void {
 
     if (this.swUpdate.isEnabled) {
@@ -29,7 +30,14 @@ export class AppComponent implements OnInit {
     }).then(
       sub => {
         console.log("notification Subscribtion", sub)
-        
+        this.data.addPushSubscriner(sub).subscribe(
+          (res) => {
+            console.log(res)
+          },
+          (err) => {
+            console.log(err)
+          }
+        );
       }
     ).catch(
       err => {
@@ -38,6 +46,14 @@ export class AppComponent implements OnInit {
     )
   }
   sendNewsletter() {
-
+    console.log("send notification To all subscriber user");
+    this.data.send().subscribe(
+      (res) => {
+        console.log(res)
+      },
+      (err) => {
+        console.log(err)
+      }
+    )
   }
 }
