@@ -19,4 +19,7 @@ export class DataService {
    // return this.http.post("/api/newsletter", sub);
    return this.http.post("https://inventory-40f4c-default-rtdb.firebaseio.com/newsletter.json", null);
   }
+
+
+  // https://github.com/angular-university/angular-pwa-course git hub code 
 }
